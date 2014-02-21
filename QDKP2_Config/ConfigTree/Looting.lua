@@ -218,7 +218,7 @@ local ItemVoice={
 	},
 }
 
-for i=1,99 do
+for i=1,999 do
 	QDKP2_Config.Tree.args.Looting.args.LOOTPriceItem.args[tostring(i)]=ItemVoice
 end
 

@@ -24,7 +24,7 @@ local function SetPreset(info,value)
 		for j,w in pairs(v) do s[j]=w; end
 		QDKP2_Config.Profile.BM_Keywords[i]=s
 	end
-	QDKP2_Config:ApplyVarToGlobal('BM_Keywords')
+	QDKP2_Config:ApplyVarToGlobal('BM_Keywords') 
 end
 
 local function GetPreset(info)
@@ -54,12 +54,12 @@ local function SetKWField(info,value)
 	if string.gsub(value,'%s','')=='' then value=nil; end
 	if v then v[field]=value; end
 end
-
+	
 local function TestKey(info)
 	local i=tonumber(info[#info-1])
 	local voice=QDKP2_Config.Profile.BM_Keywords[i]
 	for i,v in pairs(voice) do
-		if v and i~='keywords' and v~='' then
+		if v and i~='keywords' and v~='' then 
 			v=string.gsub(v,"$lowerbid1",'10')
 			v=string.gsub(v,"$higherbid1",'100')
 			v=string.gsub(v,"$ranknum1",'3')
@@ -99,7 +99,7 @@ local function TestKey(info)
 			if string.sub(v,1,9)=='function ' then Exec,value=loadstring(string.sub(v,10))
 			else Exec,value=loadstring("return "..v)
 			end
-			if not Exec then
+			if not Exec then 
 				QDKP2_Msg('Error compiling '..i..' field.\n'..value, 'ERROR')
 				return
 			end
@@ -165,12 +165,12 @@ QDKP2_Config.Tree.args.BidManager={
 					order = 70,
 				},
 				Break16=QDKP2_Config:GetBreak(75),
-
+				
 				BM_MinBid={
 					type = 'input',
 					pattern = '^-?%d+$',
 					order = 80,
-				},
+				},   
 				BM_MaxBid={
 					type = 'input',
 					pattern = '^-?%d+$',
@@ -266,7 +266,7 @@ QDKP2_Config.Tree.args.BidManager={
 					desc = L.BM_AckChannel_d,
 				},
 				Break7=QDKP2_Config:GetBreak(1157),
-
+				
 				BM_AckReject={
 					type = 'toggle',
 					order = 1160,
@@ -277,7 +277,7 @@ QDKP2_Config.Tree.args.BidManager={
 					values = ChannelsPers,
 					style = 'dropdown',
 					desc = L.BM_AckChannel_d,
-				},
+				},				
 				MiscHeader={
 					type = 'header',
 					order = 1170,
@@ -348,7 +348,7 @@ To place bets, players have simply to say a number ("bid #" and "need #" will wo
 			{keywords="min,minimum",value="$minbid"},
 		},
 	},
-
+	
 --SPEND ONE MORE
 	B={
 		name = 'Spend one more ',
@@ -365,8 +365,8 @@ The keywords used in this template are the same used in the simple bidding. To p
 		},
 	},
 
---FIXED STEPS
-	C={
+--FIXED STEPS	
+	C={	
 		name = 'Fixed steps',
 		description=
 'Every bet made in this bidding system must be greater than the curret highest one by a fixed amount. It can speedup bid process whenever you have multiple public bets and your members increase their bet one by one to the point it becomes tedious.\
@@ -393,7 +393,7 @@ The keywords used are the same as in the simple bidding system.',
 			{keywords="half", value="(1+$roll*2/100)*$net/2", dkp="$net/2"},
 		},
 	},
-
+	
 --EP/GP RATIO
 	E={
 		name = 'EP/GP Ratio',
@@ -419,7 +419,7 @@ In this implementation, the winner gets charged by half his DKP. All  the player
 			{keywords="/roll", value="$net+$roll", dkp="$net/2"},
 		},
 	},
-
+		
 	G={
 		name = 'Ni Karma',
 		description=
@@ -432,7 +432,7 @@ Please note that the Ni Karma system requests a maximum net DKP cap of 100',
 			{keywords="offspec", value="$roll-101", dkp="0"},
 		},
 	},
-
+	
 	H={
 		name='Fixed price hybrid',
 		description=
@@ -446,7 +446,7 @@ Please note that the Ni Karma system requests a maximum net DKP cap of 100',
 		},
 	},
 
-
+	
 	K={
 		name='Example complex system',
 		description=
@@ -458,7 +458,7 @@ Please note that the Ni Karma system requests a maximum net DKP cap of 100',
 	"rankbet": This is a rank-based bet: only player with rank equal or higher to the bidding leader can place this. The DKP price is 10% of the item level.\
 	"offspec": Places a zero-value bet. Wont be accepted if anyone placed a real bet.\
 	"/roll": Rolls wil be catched and will trigger an "offspec" bet.',
-
+		
 		keys={
 			{keywords="need $n", value="$n*((($isalt or $isexternal) and 0.5) or 1)", dkp="$n"},
 			{keywords="low", value="(($net*10/100>$minbid) and $net*10/100) or $minbid"},
@@ -550,7 +550,7 @@ local KeywordVoice={
 }
 
 --populates the KW list
-for i=1,30 do  --maximum of 30 keywords
+for i=1,30 do  --maximum of 30 keywords 
 	QDKP2_Config.Tree.args.BidManager.args.BidKeywords.args[tostring(i)]=KeywordVoice
 end
 

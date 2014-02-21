@@ -1,7 +1,7 @@
 ## Interface: 50400
 ## Title: Quick DKP V2 - Config
 ## Author: Akhaan & HonestyHyj prev author rb@belloli.net
-## Version: 5.4.1
+## Version: 5.4.4
 ## Notes: Configure options for QDKP2. Needs the core addon.
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
