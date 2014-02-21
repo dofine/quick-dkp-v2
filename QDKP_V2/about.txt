@@ -1,0 +1,83 @@
+Release Log:
+v5.4.3 (December 14, 2013)
+*Tag as release.  Works for 2-word server names, some issues remain for merged realms
+
+v5.4.2c (December 13, 2013)
+*Uses UnitFullName to get correct realm name
+
+v5.4.2a (December 13, 2013)
+*added init of playerrealm to guild.lua for testing
+
+v5.4.2 (December 11, 2013)
+*Changes to strip out realm in 5.4.2 names
+*Incorporates change to be able to start a session in a flex raid
+
+
+v5.4.1 (September 14, 2013)
+*Added bosses for Siege of Orgrimmar
+*Added Siege of Orgrimmar raid
+*Removed Raids prior to Throne of Thunder
+*Removed bosses prior to Throne of Thunder
+*Added the ratio for EPGP - Credit to Bryce
+
+v5.3.0 (March 22nd, 2013
+*Minor updates for 5.3 compatibility
+
+v5.2.3 (March 24, 2013)
+*Removed scanning guild during combat to prevent script errors (as per ticket 30)
+*Updated libs
+
+v5.2.2 (March 14, 2013)
+*Fix Bug stopping auto award on Boss Death
+
+v5.2.1 (March 6, 2013)
+*Start Session Bug Fix
+*Reduced Scrip times
+*Reduced Memory Usage
+
+v5.2.0 (March 6, 2013)
+*fix for GetInstanceInfo
+*update toc
+
+v5.1.1 (05/01/2012)
+*Added support for Throne of Thunder for PTR testing
+*$itemprice keyword test Fix in Options GUI
+*Updated Libs
+*Bug Fix with Auto Awarding
+*Updated Bosses
+*Updated Raids 
+*Options GUI updated
+
+v5.1.0 (November 28th, 2012)
+*TOC update for World of Warcraft patch 5.1.0
+
+v5.0.8 (November 10, 2012)
+*Fixed 22 "Set Winner" not working under some conditions
+
+v5.0.7 (September 27, 2012)
+*Fixed 20 Winner detection keyword editing
+
+v5.0.6 (September 21, 2012)
+*Fixed 17 Out of Zone Timer Awards
+*Fixed 13 Loot recipient not eligible--note that if the recipient is not eligible, bidding is not closed so the bid manager can select the next person.
+
+v5.0.5 (08/09/2012)
+*Fixed Zero sum and ironman not working on alts (Thanks htmoller)
+*Fixed Opening Config causes nil table ("error on first loot") 
+*Fixed Nil error with loot window when more than 1 page (HonestyHyj)
+
+v5.0.4 (01/09/2012)
+*Revert change to check for player in raid, now works for dkp to standby (thanks JonBoy2001)
+*Set data box now allows edits to fractional hours when hours > 1000. (GUI.xml
+
+v5.0.3 (31/08/2012)
+*Libs Updated
+
+v5.0.2 (30/08/2012)
+*Fixed Start Session - There is a current bug preventing the addon from determining the correct instance difficulty. This should be fixed in next version
+
+v5.0.1 (August 28, 2012)  by HonestyHyj
+*Update to make MoP compliant
+*Fixed error on first loot from uninitialized arrays
+*Modified permissions to allow running the mod without guild note edit privileges
+*Hours field extended by one digit
