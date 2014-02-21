@@ -19,14 +19,15 @@ function QDKP2_NewExternal(name,data)
     QDKP2_OpenInputBox("Please enter the name of the external",QDKP2_NewExternal,data)
     return
   end
-  if not name or #name<3 or #name>12 or string.find(name,"[%c%d%p%s%z]") then
+  name=QDKP2_FormatName(name)
+  if not name or #name<3  then -- removed or #name>12 or string.find(name,"[%c%d%p%s%z]") checks
     QDKP2_Msg(QDKP2_LOC_InvalidExternalName,"WARNING")
     return
   end
   if QDKP2_IsInGuild(name) then
     QDKP2_Msg(name.." is already in the guild roster","ERROR")
   end
-  name=QDKP2_FormatName(name)
+  --name=QDKP2_FormatName(name)
   QDKP2_Debug(2,"Core","Adding "..name.." as external")
   if QDKP2_IsInGuild(name) then
     local msg=string.gsub(QDKP2_LOC_CantAddExternalInGuild,"$NAME",name)

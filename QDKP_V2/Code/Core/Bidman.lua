@@ -238,6 +238,9 @@ function QDKP2_BidM_BidWatcher(txt,player,channel)
   if not QDKP2_BidM_isBidding() or not QDKP2_BidM.ACCEPT_BID then return; end
   if channel=="WHISPER" and not QDKP2_BidM_GetFromWhisper then return; end
   if channel~="WHISPER" and not QDKP2_BidM_GetFromGroup then return; end
+  --For merged servers.  Player is from Blizzard event call.  Make sure it is fully formed.
+  player = QDKP2_FormatName(player)
+  --end of merged server addition
   txt=string.lower(txt)
   txt=string.gsub(txt,"^[%s]+","")
   txt=string.gsub(txt,"[%s]+$","")
@@ -508,7 +511,7 @@ function QDKP2_BidM_SendMessage(player, t,  channel, txt)
   elseif channel == "countdown" then channel=QDKP2_BidM_ChannelCount
   end
   if channel== "RAID_WARNING" and 
-    not (UnitIsGroupAssistant(QDKP2_PLAYER_NAME_12) or UnitIsGroupLeader(QDKP2_PLAYER_NAME_12)) --not right, need name of person running QDKP
+    not (UnitIsGroupAssistant(QDKP2_PLAYER_NAME) or UnitIsGroupLeader(QDKP2_PLAYER_NAME)) --not right, need name of person running QDKP
 	then channel="GROUP"; 
   end
 
@@ -533,7 +536,9 @@ function QDKP2_BidM_RollWatch(player,roll,rollLow,rollHigh)
   QDKP2_Debug(3,"BidManager","Got /roll by "..tostring(player)..": "..tostring(roll))
 
   if not QDKP2_BidM_isBidding() or not QDKP2_BidM_CatchRoll or not QDKP2_BidM.ACCEPT_BID then return; end
-
+-- fully qualify player for merged servers
+  player=QDKP2_FormatName(player)
+--end of merged server
   if not QDKP2_IsInGuild(player) and not QDKP2_BidM_CanOutGuild then
     QDKP2_BidM_SendMessage(player,"NOBID","GROUP",QDKP2_LOC_BidNoGuild)
     return

@@ -31,10 +31,10 @@ local function SearchForWinner(txt)
   if QDKP2_GuildData.DetectBids and FoundTrigger then
     for i=1, stringSize do
       local char = string.sub(str,i,i)
-      if (char ~= " " and char ~= "," and char ~= ".") then
+      if (char ~= " " and char ~= "," and char ~= "." and char ~= "-") then  --5.4.6 change...two word realm names won't work here
         buildWord = buildWord .. char
       end
-      if char == " " or char == "," or char == "." or i == stringSize then
+      if char == " " or char == "," or char == "." or char == "-" or i == stringSize then
         local numberTry = tonumber(buildWord)
         local FormatName = QDKP2_FormatName(buildWord)
         if numberTry then
@@ -157,10 +157,12 @@ function QDKP2_OnEvent(self, event, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
     if not itemString then
       itemString = QDKP2libs.Deformat(arg1, LOOT_ITEM_SELF)
       name=UnitName('player')
+	  name=QDKP2_FormatName(name) --added 5.4.6
     end
     if not itemString then
       itemString = QDKP2libs.Deformat(arg1, LOOT_ITEM_PUSHED_SELF)
       name=UnitName('player')
+	  name=QDKP2_FormatName(name) --added 5.4.6
     end
     if not itemString then
       QDKP2_Debug(2,"Core","Quitting OnLoot because no item could be located in the loot string.")

@@ -1,4 +1,17 @@
 Release Log:
+v5.4.6 (January 25, 2014)
+*Uses a different approach to realm names, requires correct capitalization of realm names when manually typed.
+*Attempt to fix externals.
+
+v5.4.5 (January 11, 2014)
+*Make On-demand work with fully-qualified names.
+
+v5.4.4 (December 18, 2013)
+*Change to fully-qualified names throughout to deal with merged servers.
+
+v5.4.3a (December 14, 2013)
+*UnitFullName in sessions.lua that was missed in 5.4.2c
+
 v5.4.3 (December 14, 2013)
 *Tag as release.  Works for 2-word server names, some issues remain for merged realms
 

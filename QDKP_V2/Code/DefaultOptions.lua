@@ -113,8 +113,8 @@ QDKP2_AlwaysOpenToolbox = false
 -- CaSe InSeNsItIvE
 
 QDKP2_ChargeLoots = {
-  { item = "Uber Sword of Facerolling", DKP = 100},
-  { item = "Spam Cape", DKP = 25},
+  { item = "Uber Sword of Facerolling", DKP = "100"},
+  { item = "Spam Cape", DKP = "25"},
 }
 
 
@@ -171,7 +171,7 @@ QDKP2_NotLogLoots = {
 -- You can configure QDKP to perform some further calculation using several variables. You can read some example in hereunder.
 -- The following configuration is a basic template that will work on most of the cases.
 -- Keywords that QDKP will listen to by default: "need", "greed", "bid", "all", "half", "min" and /roll.
--- If you have troubles adapting the bid manager to your guild's rules, feel free to to post in the new website forums.
+-- If you have troubles adapting the bid manager to your guild's rules, feel free to to post in the new website forums. 
 -- http://www.quickdkp.com
 -- I'll try to set up the keywords for you.
 --

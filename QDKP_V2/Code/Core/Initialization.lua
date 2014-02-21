@@ -254,11 +254,11 @@ function QDKP2_OnLoad()
   QDKP2_Debug(2,"Core","Starting the addon")
 
   -- Gets player and guild details
-  QDKP2_PLAYER_NAME_12 = string.sub(UnitName("player"),1,12)
+  --QDKP2_PLAYER_NAME_31 = string.sub(UnitName("player"),1,31)
   local guildName, guildRankName, guildRankIndex = GetGuildInfo("player");
   QDKP2_GUILD_NAME = guildName
   local QDKP2_playerName
-  QDKP2_playerName, QDKP2_playerRealm = UnitFullName("player")
+  QDKP2_PLAYER_NAME, QDKP2_playerRealm = UnitFullName("player")
 
   if QDKP2_Data and QDKP2_DBREQ>(QDKP2_Data.StoreVers or 0) then
     QDKP2_InitData("*_ALL_*")
@@ -272,7 +272,7 @@ function QDKP2_OnLoad()
 
   QDKP2_ReadDatabase()
 
-  --cleans the database. Delete guild entriess that have not been opened for more than 90 days.
+  --cleans the database. Delete guild entries that have not been opened for more than 90 days.
   for k,v in pairs(QDKP2_Data) do
     if type(v) == 'table' then
       if not v.LAST_OPEN then v.LAST_OPEN=time(); end
@@ -309,8 +309,8 @@ function QDKP2_OnLoad()
     QDKP2_Msg("Couldn't find Deadly Boss Mod nor BigWigs. If nobody has them in the raid, you won't be able to detect boss kills.","WARNING")
   end
   
-  --shameful website advert
-  	QDKP2_Msg("Thank you for using Quick DKP. Please submit any problems to the Quick DKP Forums at www.quickdkp.com Thanks")
+  --Login Message
+  	QDKP2_Msg("Thank you for using Quick DKP v2. Please visit www.quickdkp.com to report bugs or suggestions")
 
   --registering the bos
 

@@ -18,6 +18,7 @@
 -- Loot Handler
 function QDKP2_OnLoot(name, item, itemQty)
   if not QDKP2_ManagementMode() then return; end
+  name = QDKP2_FormatName(name) -- make sure name is properly formatted
   if not name or type(name)~='string' or not QDKP2_IsInGuild(name) then
     QDKP2_Debug(1,"Core","Called QDKP2_Loot with invalid Player name: "..tostring(name))
     return
@@ -117,10 +118,13 @@ function QDKP2_GetItemPrice(item, zone)
     zonaDrop='ToT'
   end
   local difficulty=GetRaidDifficultyID()
-  if     difficulty == 3 then diff="10"
-  elseif difficulty == 4 then diff="25"
-  elseif difficulty == 5 then diff="10H"
-  elseif difficulty == 6 then diff="25H"
+  if     difficulty==3 then Diff="10"
+  elseif difficulty==4 then Diff="25"
+  elseif difficulty==5 then Diff="10H"
+  elseif difficulty==6 then Diff="25H"
+  elseif difficulty==7 then Diff="LFR"
+  elseif difficulty==9 then Diff="40"
+  elseif difficulty==14 then Diff="flex"
   end
   if QDKP2inventoryEnglish[itemType]=='Weapon' then tipo = 'Weap'
   elseif QDKP2inventoryEnglish[itemType]=='Armor' then tipo = 'Armor'
@@ -233,12 +237,17 @@ function QDKP2_GiveLootToPlayer(item, name, simul)
 	end
 	if not itemSlot then return false,"Couldn't find the given item in the loot window."; end
 
-	local nameSlot
-	for i=1,50 do
-		if GetMasterLootCandidate(itemSlot, i)==name then nameSlot=i; break; end
+	local nameSlot, shortName
+	local qName1, qServer1 = strsplit("-", name, 2)
+	if (qServer1 == QDKP2_playerRealm) then
+		shortName = qName1
+	else
+		shortName = name
+	end
+	for i=1,50 do 
+		if GetMasterLootCandidate(itemSlot, i)==shortName then nameSlot=i; break; end
 	end
 	if not nameSlot then return false, "Given player is not eligible to loot that object."; end
-
 	if not simul then GiveMasterLoot(itemSlot, nameSlot); end
 
 	return true

@@ -199,16 +199,16 @@ function QDKP2_GetRaidRosterInfo(i)
     if IsInRaid() then  -- New with 5.0
       local unit="raid"..tostring(i)
       name, rank, subgroup, level, class, fileName, zone, online = GetRaidRosterInfo(i)
-	  if name then
-			local shortName, realm = strsplit("-", name, 2)
-			if realm == QDKP2_playerRealm then name = shortName end
-	  end
+	  name= QDKP2_FormatName(name)  -- name is not fully qualified from GetRaidRosterInfo
     else
       local unit
+	  local realm
       if i==1 then unit="player"
       else unit="party"..tostring(i-1)
       end
-      name=UnitName(unit)
+      name, realm =UnitName(unit)  --added in 5.4.6
+	  if (realm == nil ) then realm = QDKP2_playerRealm end
+	  name = QDKP2_FormatName(name.."-"..realm)
       level=UnitLevel(unit)
       class=UnitClass(unit)
       zone="Party"

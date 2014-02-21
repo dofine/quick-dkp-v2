@@ -124,6 +124,9 @@ function QDKP2_DownloadGuild(Revert)
       end
     end
     local Main=QDKP2_FirstWord(datafield)
+	--Deal with merged servers
+	Main = QDKP2_FormatName(Main)  --Headache, this might append wrong server in merged server situations
+	--end of merged servers
 
     if not Hide_Rank and level>=QDKP2_MINIMUM_LEVEL and ((not QDKP2_IsInGuild(Main) and not QDKP2altsRestore[name]) or QDKP2altsRestore[name]=="") then
 
@@ -507,10 +510,7 @@ function QDKP2_GetGuildRosterInfo(i)
   local ext_list=ListFromDict(QDKP2externals)
   if i<=GuildSize then
     name, rank, rankIndex, level, class, zone, note, officernote, online, status = GetGuildRosterInfo(i)
-	if name then
-		local shortName, realm = strsplit("-", name, 2)
-		if realm == QDKP2_playerRealm then name = shortName end
-	end
+	name = QDKP2_FormatName(name)  -- this return is already qualified,  but if we change format there it will change it here
     isinguild=true
   elseif i-GuildSize <= #ext_list then
     name=ext_list[i-GuildSize]

@@ -1,7 +1,7 @@
 ## Interface: 50400
 ## Title: Quick DKP V2 - Core
 ## Author: Akhaan & Honesty Hyj
-## Version: 5.4.3
+## Version: 5.4.6
 ## Notes: Complete system for in-game DKP managment
 ## OptionalDeps: AtlasLoot, DeadlyBossMods
 ## DefaultState: Enabled

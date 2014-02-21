@@ -42,7 +42,8 @@ function QDKP2_StartSession(SessionName)
   elseif instDiff==9 then Diff="40"
   elseif instDiff==14 then Diff="flex"
   end
-  QDKP2_playerRealm = GetRealmName()  --check at session start to be sure for 5.4.2
+  local QDKP2_playerName
+  QDKP2_playerName, QDKP2_playerRealm = UnitFullName("player") -- added for 5.4.2c testing
   local DefaultSessName=(GetRealZoneText() or UNKNOWN)..' ('..Diff..')'
 
   if SessionName=="" then
@@ -52,10 +53,9 @@ function QDKP2_StartSession(SessionName)
   end
 
   SessionName=SessionName or QDKP2_LOC_NoSessName
-
   QDKP2_SID.INDEX=QDKP2_SID.INDEX+1
   QDKP2_SetGuildNotes()
-  SID=tostring(QDKP2_SID.INDEX)..'.'..QDKP2_PLAYER_NAME_12
+  SID=tostring(QDKP2_SID.INDEX)..'.'..QDKP2_PLAYER_NAME
   QDKP2_SID.MANAGING=SID
 
   --Reset the Raid custom tables
@@ -64,7 +64,7 @@ function QDKP2_StartSession(SessionName)
 
   local msg=string.gsub(QDKP2_LOC_NewSession,"$SESSIONNAME",SessionName)
   QDKP2_Msg(msg)
-  QDKP2log_StartSession(QDKP2_SID.MANAGING, SessionName, QDKP2_PLAYER_NAME_12, QDKP2_SID.INDEX)
+  QDKP2log_StartSession(QDKP2_SID.MANAGING, SessionName, QDKP2_PLAYER_NAME, QDKP2_SID.INDEX)
   local List=QDKP2log_GetSession(SID)
   for i=1, #QDKP2raid do
 --    local name = QDKP2_GetMain(QDKP2raid[i])

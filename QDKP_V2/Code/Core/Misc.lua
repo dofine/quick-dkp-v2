@@ -23,7 +23,7 @@
 -- QDKP2_isChargeable(<name>,<amount>): returns true if name can safely be charged by <amount>
 -- QDKP2_Msg(msg, [Type], [Color], [Channel]): Standard message handler.
 --
--- QDKP2_FormatName(name): Retruns a formatted copy of name ("airiena" becomes "Airiena")
+-- QDKP2_FormatName(name): Retruns a formatted copy of full name ("airiena" becomes "Airiena-Server") --for 5.4 mod
 -- QDKP2_GetDateTextFromTS(Time): Extracts the date from the given timestamp.
 -- QDKP2_Time(): Returns the second since the epoch using the delta founded by GuessTimeZone
 -- MergeList(list1,list2): returns a new list that is the union between list1 and 2
@@ -35,8 +35,8 @@
 
 ---------------------- GENERAL GLOBALS ------------------
 
-QDKP2_VERSION      = "5.4.3"
-QDKP2_DBREQ        = 20550
+QDKP2_VERSION      = "5.4.6"
+QDKP2_DBREQ        = 20551
 QDKP2_BETA         = false
 QDKP2_DEBUG	       = 0
 ------------------------------COLOR GLOBALS------------------------
@@ -69,7 +69,7 @@ QDKP2_SPENT=2
 QDKP2_HOURS=3
 
 QDKP2_outputstyle=4
-QDKP2_playerRealm = GetRealmName()
+QDKP2_playerRealm = GetRealmName() --This will get done in init
 
 ---------------------------------------NOTIFY----------------------------
 
@@ -355,12 +355,15 @@ end
 --------------------- STRING SERVICES ----------------------
 
 function QDKP2_FormatName(name)
---formats the name properly.  ie airiena would become Airiena
+--formats the name properly.  ie airiena would become Airiena-server, matching Blizzard cross realm
 --Unicode compatible
+--Does not test that the string is actually the name of a character
+--Adds the players realm to the string if no string is found.
+--If it finds a -, it assumes what follows is a realm name
 
   assert(type(name)=='string')
   if #name<1 then return ""; end
-  if #name==1 then return string.upper(name); end
+  if #name==1 then return string.upper(name).."-"..QDKP2_playerRealm; end
   local till=1
   for i=1,#name do  --this is to get the real first character (UTF8)
     --if i==#name then return string.upper(name); end
@@ -371,7 +374,32 @@ function QDKP2_FormatName(name)
   end
   local first = string.sub(name, 1, till)
   local remainder = string.sub(name, 2)
-  local output = string.upper(first)..string.lower(remainder)
+  local output = string.upper(first)  --Need to not lower case the realm name, done below in loop
+  --Check to see if the server name is included
+  --5.4.6 redoing this assuming server name comes from Blizz correctly capitalized
+  --this deals with the new GuildRosterInfo returns
+  --unresolved: will server names ever be manually typed?
+  local foundServer = 0
+  for i=till,#name do
+    local char=strbyte(name,i+1)
+	if not char then break; end
+	if ( char == 45 ) then
+	  foundServer = 1
+	  remainder = string.sub(name, i+1)
+	  
+	  output = output..remainder
+	  break
+	else -- for other characters in the name not in the realm name
+	  if (char < 128) then
+	    output = output..string.lower(strchar(char))
+	  else
+	    output = output..strchar(char)
+	  end
+	  
+	end
+	i=i+1
+  end
+  if (foundServer == 0) then output = output.."-"..QDKP2_playerRealm end
   return output
 end
 
